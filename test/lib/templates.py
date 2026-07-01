@@ -106,3 +106,56 @@ def get_template_for_model(model: str) -> ChatTemplate:
     if model.startswith("deepseek"):
         return DEEPSEEK
     return GENERIC
+
+
+# Paper Table 19/20 — agent-specific tokens (Strategy 4: Reasoning + Tool-calling hooks)
+@dataclass(frozen=True)
+class AgentHookTags:
+    """Native reasoning / tool-call phase markers for agent template injection."""
+
+    name: str
+    think_start: str
+    think_end: str
+    tool_call_start: str
+    tool_call_end: str
+    tool_wrap_start: str = ""
+    tool_wrap_end: str = ""
+
+
+# Qwen-3 (Table 19)
+QWEN3_AGENT_HOOKS = AgentHookTags(
+    name="qwen3",
+    think_start="<think>\n",
+    think_end="\n</think>\n",
+    tool_call_start="\n<tool call>\n",
+    tool_call_end="\n</tool call>\n",
+)
+
+# GLM-4.5-style (Table 20) — used for DeepSeek targets (paper has no DeepSeek row)
+DEEPSEEK_AGENT_HOOKS = AgentHookTags(
+    name="deepseek",
+    think_start="<think>",
+    think_end="</think>\n",
+    tool_call_start="<tool call>",
+    tool_call_end="</tool call>",
+)
+
+MODEL_AGENT_HOOKS_MAP: dict[str, AgentHookTags] = {
+    "qwen3.7-plus": QWEN3_AGENT_HOOKS,
+    "qwen3.7-max": QWEN3_AGENT_HOOKS,
+    "qwen3.6-plus": QWEN3_AGENT_HOOKS,
+    "qwen3.6-flash": QWEN3_AGENT_HOOKS,
+    "qwen3.5-plus": QWEN3_AGENT_HOOKS,
+    "deepseek-v4-pro": DEEPSEEK_AGENT_HOOKS,
+    "deepseek-v4-flash": DEEPSEEK_AGENT_HOOKS,
+}
+
+
+def get_agent_hooks_for_model(model: str) -> AgentHookTags:
+    if model in MODEL_AGENT_HOOKS_MAP:
+        return MODEL_AGENT_HOOKS_MAP[model]
+    if model.startswith("qwen"):
+        return QWEN3_AGENT_HOOKS
+    if model.startswith("deepseek"):
+        return DEEPSEEK_AGENT_HOOKS
+    return QWEN3_AGENT_HOOKS
