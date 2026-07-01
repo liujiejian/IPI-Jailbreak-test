@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.garak_runs/
+test/results/
+test/report/*.html
+test/config/*_api_keys.yaml
+test/_paper_extract.txt
+*.duckdb
+API_key/

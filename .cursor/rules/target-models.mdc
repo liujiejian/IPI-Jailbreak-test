@@ -1,0 +1,32 @@
+---
+description: 本项目仅测试指定的 7 个大模型，勿使用其他模型
+alwaysApply: true
+---
+
+# 待测模型范围
+
+本项目**只**对以下 7 个模型进行越狱与 IPI（间接提示词注入）安全测试，不得添加、替换或默认使用列表外的模型。
+
+## Qwen 系列
+
+| 显示名称 | API 模型 ID |
+|----------|-------------|
+| Qwen3.7-Plus | `qwen3.7-plus` |
+| Qwen3.7-Max | `qwen3.7-max` |
+| Qwen3.6-Plus | `qwen3.6-plus` |
+| Qwen3.6-Flash | `qwen3.6-flash` |
+| Qwen3.5-Plus | `qwen3.5-plus` |
+
+## DeepSeek 系列
+
+| 显示名称 | API 模型 ID |
+|----------|-------------|
+| DeepSeek-V4-Pro | `deepseek-v4-pro` |
+| DeepSeek-V4-Flash | `deepseek-v4-flash` |
+
+## 使用约定
+
+- 配置 `.env` 中的 `TARGET_MODEL` 时，只能使用上表中的 API 模型 ID
+- 运行 `scripts/run_scan.py` 时，`-m` 参数只能指定上述模型之一
+- 批量测试应遍历全部 7 个模型，而非工作空间中的其他 200+ 模型
+- 编写脚本、文档或示例时，默认模型为 `qwen3.7-plus`

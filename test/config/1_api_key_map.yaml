@@ -1,0 +1,14 @@
+# 模型 -> API_key 目录中的 CSV 槽位
+# 文件命名：默认业务空间-apiKey1-5930959.csv ... apiKey7-5932724.csv
+
+mapping:
+  qwen3.7-plus: apiKey1
+  qwen3.7-max: apiKey2
+  qwen3.6-plus: apiKey3
+  qwen3.6-flash: apiKey4
+  qwen3.5-plus: apiKey5
+  deepseek-v4-pro: apiKey6
+  deepseek-v4-flash: apiKey7
+
+# 备用 Key：某模型专用 Key 连续两次无响应/超时后，切换此槽位重试
+spare_key_slot: apiKey8
