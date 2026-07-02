@@ -1,0 +1,12 @@
+# 模型 -> API_key 目录中的 CSV 槽位（与 Strategy 1–38 相同）
+
+mapping:
+  qwen3.7-plus: apiKey1
+  qwen3.7-max: apiKey2
+  qwen3.6-plus: apiKey3
+  qwen3.6-flash: apiKey4
+  qwen3.5-plus: apiKey5
+  deepseek-v4-pro: apiKey6
+  deepseek-v4-flash: apiKey7
+
+spare_key_slot: apiKey8
