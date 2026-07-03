@@ -76,6 +76,18 @@ test/
 | **FAQ 知识库投毒 (PoisonedRAG)** | Kaya 2025 **RAG Poisoning** (35) | **`kb_poisoning_env`**：FAQ→embed→vector DB→Question→Retrieve→Execute | `kb_poisoning_env.py`、`rag_poisoning.py` |
 | **RAG 角色边界违规** | Kaya 2025 **Role Boundary Violation** (36) | **`role_boundary_env`**：RAG 检索误放入 **system/assistant** 而非 tool | `role_boundary_env.py`、`rag_role_violation.py` |
 | **RAG Vector DB 持久化投毒** | Kaya 2025 Persistent Prompt Injection (34) | `rag_kb_env` + **`VectorKBStore`**：poison in index → 多会话 Retrieve→Trigger | `vector_kb_store.py`、`persistent_rag_injection.py` |
+| **GraphRAG 外部语料投毒 (External Content Injection)** | Liang 2025 **GraphRAG under Fire** (40) | **`graphrag_env`**：corpus→graph index→**search_graph_knowledge** V/R/S/T→LLM | `graphrag_env.py`、`external_content_injection.py` |
+| **GraphRAG 叙事注入 (Narrative / Covering Narrative)** | Liang 2025 **GraphRAG under Fire** §4.2–4.3 (41) | **`graphrag_env`**（复用 40）+ **direct vs narrative** 载荷对比 | `graphrag_env.py`、`narrative_injection.py` |
+| **GraphRAG 语义注入 (Semantic Entity Substitution)** | Liang 2025 **GraphRAG under Fire** §4.2 + §5.3.3 (42) | **`graphrag_env`**（复用 40）+ **同类语义 vs 跨类 mismatch** 实体替换 | `graphrag_env.py`、`semantic_injection.py` |
+| **GraphRAG 关系注入 (Relation-based / GragPoison core)** | Liang 2025 **GraphRAG under Fire** §4.1–4.3 (43) | **`graphrag_env`**（复用 40）+ **Entity→Relation→Entity** vs Question→Answer | `graphrag_env.py`、`relation_based_injection.py` |
+| **GraphRAG 多查询注入 (Multi-query / QPP scalability)** | Liang 2025 **GraphRAG under Fire** §4.1 (44) | **`graphrag_env`**（复用 40）+ **1 poison → |X_r| queries** vs per-query | `graphrag_env.py`、`multi_query_injection.py` |
+| **GraphRAG 掩护叙事 (Covering Narrative / Table IV ablation)** | Liang 2025 **GraphRAG under Fire** §4.2 (45) | **`graphrag_env`**（复用 40）+ **temporal / negation / context** 三技巧 ablation | `graphrag_env.py`、`covering_narrative_injection.py` |
+| **Web Agent 轨迹感知 IPI (MUZZLE Trajectory-aware)** | Syros 2026 **MUZZLE** §3.3 (46) | **`web_agent_trajectory_env`**：T^b→Grafter→**extract_page_content** 高显著性面 | `web_agent_trajectory_env.py`、`trajectory_aware_injection.py` |
+| **Web Agent 上下文感知 Payload (MUZZLE Context-aware)** | Syros 2026 **MUZZLE** §3.4 (47) | **`web_agent_trajectory_env`**（复用 46）+ **Payload Generator** 上下文对齐 vs generic IPI | `web_agent_trajectory_env.py`、`context_aware_payload_injection.py` |
+| **Web Agent 自适应 IPI (MUZZLE Adaptive / Reflection Loop)** | Syros 2026 **MUZZLE** §3.5 (48) | **`web_agent_trajectory_env`**（复用 46–47）+ **Judge** → payload refine / vessel switch 循环 | `web_agent_trajectory_env.py`、`adaptive_prompt_injection.py` |
+| **Web Agent UI 元素 IPI (MUZZLE UI Vessel Ranking)** | Syros 2026 **MUZZLE** §3.3 (49) | **`web_agent_trajectory_env`**（复用 46）+ **Grafter** UI rank #1/#2/#3（visibility×exploitability×surface） | `web_agent_trajectory_env.py`、`ui_vessel_injection.py` |
+| **Web Agent 跨应用 IPI (MUZZLE Cross-app)** | Syros 2026 **MUZZLE** Table 2 / Figure 3 (50) | **`cross_app_web_agent_env`**：App A UI 投毒 → **navigate** App B → 目标 action tool | `cross_app_web_agent_env.py`、`cross_app_injection.py` |
+| **Web Agent 钓鱼 IPI (MUZZLE Agentic Phishing)** | Syros 2026 **MUZZLE** Figure 4 (51) | **`agentic_phishing_env`**：Postmill reply → **task.webhost.zoo/verify** → submit_task_verification | `agentic_phishing_env.py`、`agentic_phishing_injection.py` |
 | 跨会话持久化 | Greshake Persistent Injection | `agent_env` + `MemoryStore` + `memory_read`/`memory_write` | `persistent_injection.py`、`memory_store.py` |
 
 **决策流程（按顺序）：**
@@ -95,4 +107,16 @@ test/
 - Kaya 的爬虫→KB 延迟触发 → 不要用同会话 `get_webpage` 代替
 - Kaya **Persistent** 跨会话 → 需 `VectorKBStore` 多会话，不要与 Strategy 14 MemoryStore 或 32/33 单次 RAG 混淆
 - Kaya **RAG 角色边界** → 需 `role_boundary_env`（检索误放 system/assistant），不要与 29–31 任意 POST 伪造或 35 正确 tool 投递混淆
+- Liang **GraphRAG 外部语料投毒** → 需 `graphrag_env`（V/R/S/T 多尺度图检索），不要与 32–35 扁平向量 chunk 或 FAQ 向量库混淆
+- Liang **Narrative Injection** → 复用 `graphrag_env`，载荷在 `narrative_injection.py`（direct vs covering narrative），不要与 40 的 corpus_* 变体混为一谈
+- Liang **Semantic Injection** → 复用 `graphrag_env`，载荷在 `semantic_injection.py`（同类实体替换 vs 跨类 mismatch），不要与 41 的叙事包装混为一谈
+- Liang **Relation-based Injection** → 复用 `graphrag_env`，载荷在 `relation_based_injection.py`（图关系 r* vs PoisonedRAG 答案投毒），不要与 42 的语义实体选择混为一谈
+- Liang **Multi-query Injection** → 复用 `graphrag_env`，载荷在 `multi_query_injection.py`（QPP 效率：1 poison vs |X_r| poisons），不要与 43 的关系攻击面混淆
+- Liang **Covering Narrative** → 复用 `graphrag_env`，载荷在 `covering_narrative_injection.py`（Table IV 三技巧 ablation），不要与 41 的 IPI 故事分层混为一谈
+- Syros **MUZZLE Trajectory-aware IPI** → 需 `web_agent_trajectory_env`（多步 navigate/click/extract + Grafter），不要与 ChatInject 单次 `get_webpage` 或 Kaya 离线索引 RAG 混淆
+- Syros **MUZZLE Context-aware Payload** → 复用 `web_agent_trajectory_env`，载荷在 `context_aware_payload_injection.py`（generic vs context-aligned phrasing at T* j*），不要与 46 的注入面选择或 blunt poison 混为一谈
+- Syros **MUZZLE Adaptive Reflection Loop** → 复用 `web_agent_trajectory_env`，载荷在 `adaptive_prompt_injection.py`（Judge → payload/vessel retry），不要与 47 的单次 payload 生成或 46 的单次 surface 选择混淆
+- Syros **MUZZLE UI Vessel Ranking** → 复用 `web_agent_trajectory_env`，载荷在 `ui_vessel_injection.py`（Grafter 三档 UI 元素 ablation），不要与 46 的 trajectory vs manual 对比或 Document/RAG IPI 混淆
+- Syros **MUZZLE Cross-app IPI** → 需 `cross_app_web_agent_env`（App A poison → App B action），不要与 46–49 单应用轨迹或 15 Prompt Worm 跨会话 email 混淆
+- Syros **MUZZLE Agentic Phishing** → 需 `agentic_phishing_env`（task verification 伪造页 + submit_task_verification），不要与 50 cross-app 破坏 action 或 human 钓鱼话术混为一谈
 - 需要 POST `message_history` → 不要只用 `build_agent_messages` 伪造 tool 输出
