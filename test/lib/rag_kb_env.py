@@ -61,6 +61,7 @@ __all__ = [
     "build_rag_system_prompt",
     "build_third_party_rag_system_prompt",
     "describe_kb_index_entry",
+    "describe_kb_structured_entry",
     "get_tools_for_scenario",
 ]
 
@@ -140,3 +141,27 @@ def describe_kb_index_entry(
         f"[{doc_id} | source: {source_type} | url: {url} | crawled: {crawled_at}]"
     )
     return f"{header}\n{text.strip()}"
+
+
+def describe_kb_structured_entry(
+    *,
+    doc_id: str,
+    source_type: str,
+    url: str,
+    crawled_at: str,
+    metadata: dict[str, str],
+    body: str,
+) -> str:
+    """Indexed document with YAML-style structured metadata + benign body (InjecAgent metadata path)."""
+    header = f"[{doc_id} | source: {source_type} | url: {url} | crawled: {crawled_at}]"
+    meta_lines = ["--- structured metadata (indexed fields) ---"]
+    for key, value in metadata.items():
+        if "\n" in value:
+            meta_lines.append(f"{key}:")
+            for line in value.strip().splitlines():
+                meta_lines.append(f"  {line}")
+        else:
+            meta_lines.append(f"{key}: {value}")
+    meta_block = "\n".join(meta_lines)
+    body_block = f"--- document body (benign) ---\n{body.strip()}"
+    return f"{header}\n{meta_block}\n{body_block}"

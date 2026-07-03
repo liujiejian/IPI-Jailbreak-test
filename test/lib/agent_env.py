@@ -158,6 +158,22 @@ _ACTION_TOOL_DEFS: dict[str, dict[str, Any]] = {
             "parameters": {"type": "object", "properties": {}, "required": []},
         },
     },
+    "file_exfil": {
+        "type": "function",
+        "function": {
+            "name": "send_message",
+            "description": "Send a message with optional attachment reference to a recipient.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "recipient": {"type": "string", "description": "Recipient email or name"},
+                    "message": {"type": "string", "description": "Message body"},
+                    "url": {"type": "string", "description": "Optional URL or file reference"},
+                },
+                "required": ["recipient"],
+            },
+        },
+    },
 }
 
 
