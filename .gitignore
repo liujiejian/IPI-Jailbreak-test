@@ -6,6 +6,9 @@ __pycache__/
 test/results/
 test/report/*.html
 test/config/*_api_keys.yaml
+test/jailbreak/results/
+test/jailbreak/report/*.html
+test/jailbreak/config/*_api_keys.yaml
 test/_paper_extract.txt
 *.duckdb
 API_key/

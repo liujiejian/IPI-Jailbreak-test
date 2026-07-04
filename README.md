@@ -18,10 +18,9 @@ python scripts/list_models.py
 python scripts/run_scan.py jailbreak   # 越狱测试
 python scripts/run_scan.py ipi         # IPI 测试
 
-# 5. ChatInject 论文策略测试（见 test/README.md）
-python test/1_chatinject_template_injection.py
-python test/2_chatinject_multiturn_injection.py
-python test/3_chatinject_mixture_templates.py
+# 5. 论文策略测试
+python test/1_chatinject_template_injection.py          # IPI（见 test/README.md）
+python test/jailbreak/1_multiturn_persuasion_jailbreak.py       # 越狱（见 test/jailbreak/README.md）
 ```
 
 ## 探针说明（Garak）
