@@ -26,11 +26,13 @@ from jblib.evaluation import evaluate_jailbreak  # noqa: E402
 from jblib.multi_variant_summary import summarize_variants  # noqa: E402
 from jblib.scenarios import load_scenarios  # noqa: E402
 from jblib.summary import summarize  # noqa: E402
+from jblib.wrong_summary_evaluation import evaluate_wrong_summary  # noqa: E402
+from lib.evaluation import evaluate_response  # noqa: E402
 
 
 def _config_stem_from_run(run_dir: Path) -> str:
     name = run_dir.name
-    for n in ("9_", "8_", "7_", "6_", "5_", "4_", "3_", "2_", "1_"):
+    for n in ("19_", "18_", "17_", "16_", "15_", "14_", "13_", "12_", "11_", "10_", "9_", "8_", "7_", "6_", "5_", "4_", "3_", "2_", "1_"):
         if name.startswith(n):
             return f"{n[0]}_scenarios"
     return "1_scenarios"
@@ -67,7 +69,20 @@ def reevaluate_run(run_dir: Path, *, write: bool = False) -> dict:
         counts_before[old] = counts_before.get(old, 0) + 1
 
         response = row.get("response") or row.get("error") or ""
-        new_eval = evaluate_jailbreak(response, scenario)
+        if row.get("source_document") or row.get("manipulation_variant"):
+            new_eval = evaluate_wrong_summary(
+                response,
+                scenario,
+                variant=row.get("variant", "direct"),
+            )
+        elif row.get("user_instruction") or row.get("tool_output"):
+            new_eval = evaluate_response(
+                response,
+                scenario,
+                tool_calls=row.get("tool_calls"),
+            )
+        else:
+            new_eval = evaluate_jailbreak(response, scenario)
         new = new_eval.get("label", "error")
         counts_after[new] = counts_after.get(new, 0) + 1
 
@@ -76,11 +91,12 @@ def reevaluate_run(run_dir: Path, *, write: bool = False) -> dict:
         row["evaluation"] = new_eval
 
     variants = _variants_from_results(results)
-    if len(variants) <= 2 and "direct" in variants:
-        other = next((v for v in variants if v != "direct"), variants[-1] if variants else "direct")
-        summary = summarize(results, direct_variant="direct", jailbreak_variant=other)
+    baseline = "clean" if "clean" in variants else "direct"
+    if len(variants) <= 2 and baseline in variants:
+        other = next((v for v in variants if v != baseline), variants[-1] if variants else baseline)
+        summary = summarize(results, direct_variant=baseline, jailbreak_variant=other)
     else:
-        summary = summarize_variants(results, variants, baseline="direct")
+        summary = summarize_variants(results, variants, baseline=baseline)
 
     report = {
         "run_dir": str(run_dir),

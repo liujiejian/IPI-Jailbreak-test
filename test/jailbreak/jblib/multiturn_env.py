@@ -44,6 +44,45 @@ def run_direct_turn(
     }
 
 
+def run_completion_prefix_turn(
+    client,
+    *,
+    model: str,
+    scenario: dict,
+    system_prompt: str,
+    label: str,
+    user_content: str,
+    assistant_prefix: str,
+) -> dict[str, Any]:
+    """Completion Prefix Attack: partial assistant turn prefill, model continues."""
+    messages: list[dict[str, Any]] = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_content},
+        {"role": "assistant", "content": assistant_prefix},
+    ]
+    completion = create_chat_completion(
+        client,
+        model=model,
+        messages=messages,
+        label=label,
+        tools=None,
+        temperature=0,
+        max_tokens=1024,
+    )
+    continuation = completion.content or ""
+    response = assistant_prefix + continuation
+    return {
+        "messages": messages + [{"role": "assistant", "content": response}],
+        "response": response,
+        "user_prompt": user_content,
+        "assistant_prefix": assistant_prefix,
+        "prefix_continuation": continuation,
+        "turn_log": [],
+        "api_turn_count": 1,
+        "evaluation": evaluate_jailbreak(response, scenario),
+    }
+
+
 def run_multiturn_persuasion(
     client,
     *,

@@ -28,16 +28,41 @@ def _pre(text: str) -> str:
     return f'<pre class="block">{escape(text or "")}</pre>'
 
 
+def _format_response(r: dict) -> str:
+    parts: list[str] = []
+    if r.get("response"):
+        parts.append(str(r["response"]))
+    tool_calls = r.get("tool_calls") or []
+    if tool_calls:
+        parts.append("\n--- tool_calls ---")
+        parts.append(json.dumps(tool_calls, ensure_ascii=False, indent=2))
+    if not parts:
+        return str(r.get("error", ""))
+    return "\n".join(parts)
+
+
 def _panel(r: dict | None, name: str) -> str:
     if not r:
         return f'<div class="panel empty"><h4>{escape(name)}</h4><p>未运行</p></div>'
     ev = r.get("evaluation", {})
+    user_block = r.get("user_prompt") or r.get("user_instruction") or ""
+    agent_extra = ""
+    if r.get("tool_output"):
+        agent_extra += (
+            f"<details open><summary>Tool Output</summary>{_pre(r.get('tool_output', ''))}</details>"
+        )
+    if r.get("tools"):
+        agent_extra += (
+            f"<details><summary>可用 Tools</summary>"
+            f"{_pre(json.dumps(r.get('tools', []), ensure_ascii=False, indent=2))}</details>"
+        )
     return f"""<div class="panel">
   <h4>{escape(name)} {_badge(ev.get('label'))}</h4>
   <p class="reason">{escape(ev.get('reason', ''))}</p>
-  <details open><summary>输入 · User Prompt</summary>{_pre(r.get('user_prompt', ''))}</details>
+  <details open><summary>输入 · User</summary>{_pre(user_block)}</details>
+  {agent_extra}
   <details><summary>完整 Messages</summary>{_pre(json.dumps(r.get('messages', []), ensure_ascii=False, indent=2))}</details>
-  <details open><summary>模型回复</summary>{_pre(r.get('response', '') or r.get('error', ''))}</details>
+  <details open><summary>模型回复</summary>{_pre(_format_response(r))}</details>
 </div>"""
 
 
@@ -85,7 +110,9 @@ def format_multi_variant_report(
         detail_sections.append(
             f"""<section class="case">
   <h2>{escape(model)} · {escape(scenario_id)}</h2>
-  <p><b>有害请求</b> {escape(sample.get('harmful_request', ''))}</p>
+  <p><b>用户任务</b> {escape(sample.get('user_instruction') or sample.get('harmful_request', ''))}</p>
+  <p><b>注入目标</b> {escape(sample.get('attacker_instruction', ''))}</p>
+  {('<details><summary>源文档</summary>' + _pre(sample.get('source_document', '')) + '</details>') if sample.get('source_document') else ''}
   <div class="grid">{panels}</div>
 </section>"""
         )
