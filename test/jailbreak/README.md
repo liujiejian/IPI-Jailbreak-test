@@ -527,4 +527,53 @@ python test/jailbreak/19_few_query_jailbreak.py --serial
 
 报告：`test/jailbreak/report/19_few_query_jailbreak测试.html`
 
+---
+
+# 策略 20–38 — URLcoat / SoK / EnchTable 补充实现（本项目）
+
+> 依据《策略整理》文档中 URLcoat（Sun 等）、SoK（Wang 等）、EnchTable（Wu 等）、Zhan 等四篇论文补充。
+> 文档共列 **25** 个策略，其中 **6 个在三方直供黑盒 API 上不可行**、按要求**不建脚本**：
+> URLcoat **IA**（需模型自身联网搜索）、Zhan **GCG / 多目标 GCG / 两阶段 GCG**（需梯度）、
+> **AutoDAN**（需 logits/loss 做遗传适应度）、**AdvPrompter**（需训练攻击者模型）。
+> 其余 **19 个**全部实现为独立脚本（20–38），沿用 1–19 的脚本骨架、`jblib` 契约与 7 模型配置。
+> 多调用类（23/24/26）在黑盒下采用**自影子 / 自攻击者**（目标模型自身充当影子/攻击者）。
+
+| # | 策略 | 论文 | Variants |
+|---|------|------|----------|
+| 20 | Sensitive Word Obfuscation（SWO 敏感词特征化） | URLcoat §策略1 | direct / swo_feature / swo_combined |
+| 21 | Contextual Narrative Guidance（CNG 叙事引导） | URLcoat §策略3 | direct / novel_frame / novel_realworld / expert_character |
+| 22 | Placeholder Reconstruction（占位符重构） | URLcoat §策略4 | direct / xx_basic / xx_reconstruct / xx_feature |
+| 23 | Shadow-LLM Assisted（影子 LLM 辅助 · 2 步） | URLcoat §策略5 | direct / shadow_swo / shadow_pipeline |
+| 24 | Few-shot CoT Auto-gen（少样本 CoT 自动生成 · 2 步） | URLcoat §策略6 | direct / fewshot_cot |
+| 25 | Manual Personas（DAN / AIM 人格） | SoK Strategy 1 | direct / dan / aim / dev_mode / stan |
+| 26 | PAIR（攻击者 LLM 迭代改写 · ≤3 轮） | SoK Strategy 3 | direct / pair |
+| 27 | Encoding（Base64/ROT13/leet/反转） | SoK Strategy 4 | direct / base64 / rot13 / leetspeak / reversed |
+| 28 | Crescendo（多轮危险度升级 · 真实多轮） | SoK Strategy 5 | direct / crescendo |
+| 29 | Role Play（邪恶助手/反派扮演） | EnchTable 技法1 | direct / evil_assistant / villain_character / opposite_ai |
+| 30 | Slang（黑话/隐语） | EnchTable 技法2 | direct / slang_term / coded_euphemism |
+| 31 | Miss Spelling（敏感词拼写错误） | EnchTable 技法3 | direct / leet_typo / space_split / char_drop |
+| 32 | Logic Appeal（逻辑诉求） | EnchTable 技法4 | direct / logic_appeal |
+| 33 | Authority Endorsement（权威背书） | EnchTable 技法5 | direct / authority_endorsement |
+| 34 | Misrepresentation（虚假前提） | EnchTable 技法6 | direct / misrepresentation |
+| 35 | Evidence-based Persuasion（证据说服） | EnchTable 技法7 | direct / evidence_based |
+| 36 | Expert Endorsement（专家身份） | EnchTable 技法8 | direct / expert_endorsement |
+| 37 | In-Context Attack（ICA 上下文攻击） | EnchTable 技法9 | direct / ica_2shot / ica_4shot |
+| 38 | DRA / Task Decomposition（分解重构） | EnchTable 技法10 / SoK DrAttack | direct / decompose / payload_split / nested_template |
+
+```powershell
+# 单调用类（20-22,25,27,29-38）—— 与上游同参数
+python test/jailbreak/20_word_obfuscation_jailbreak.py
+python test/jailbreak/29_role_play_jailbreak.py --variant evil_assistant --serial
+# 多调用类（23/24/26 每条含多次 API）
+python test/jailbreak/23_shadow_llm_jailbreak.py
+python test/jailbreak/26_pair_jailbreak.py --scenario lock_picking
+# 多轮
+python test/jailbreak/28_crescendo_jailbreak.py --variant crescendo
+```
+
+> **不可行 6 项的详细技术原因**：GCG 系需目标模型的**梯度/logits** 迭代搜索对抗后缀；AutoDAN 用
+> **遗传算法**、适应度依赖目标模型 **loss/对数概率**；AdvPrompter 需**微调训练**一个攻击者 LLM；
+> URLcoat **IA** 的机理是让目标模型**调用自身联网搜索**从真实网页重构敏感词。三方直供 chat API
+> 只返回采样文本，不暴露梯度/logits、不可微调、无联网搜索工具，故上述 6 项无法在本环境忠实复现。
+
 规范：`.cursor/rules/jailbreak-test-scripts.mdc`
