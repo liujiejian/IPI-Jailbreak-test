@@ -1,0 +1,19 @@
+chang-2026-chatinject	Chang 等 - 2026 - ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents.pdf
+chen-0000-llmthief	Chen 等 - LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores.pdf
+debenedetti-2024-agentdojo	Debenedetti 等 - 2024 - AgentDojo A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents.pdf
+greshake-2023-greshake-aise	Greshake 等 - 2023 - Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro.pdf
+jia-2025-promptlocate	Jia 等 - 2025 - PromptLocate Localizing Prompt Injection Attacks.pdf
+kaya-2025-kaya-web-plugins	Kaya 等 - 2025 - When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins.pdf
+liang-2025-graphrag-under-fire	Liang 等 - 2025 - GraphRAG under Fire.pdf
+liu-2024-dra-jailbreak	Liu 等 - 2024 - Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon.pdf
+liu-2025-formalizing-pi	Liu 等 - 2025 - Formalizing and Benchmarking Prompt Injection Attacks and Defenses.pdf
+sun-0000-urlcoat	Sun 等 - URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models.pdf
+syros-2026-muzzle	Syros 等 - 2026 - MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks.pdf
+wang-2025-sok-guardrails	Wang 等 - 2025 - SoK Evaluating Jailbreak Guardrails for Large Language Models.pdf
+wu-2025-enchtable	Wu 等 - 2025 - EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models.pdf
+wu-2025-agent-permissions	Wu 等 - 2025 - Towards Automating Data Access Permissions in AI Agents.pdf
+yu-0000-llm-fuzzer	Yu 等 - LLM-Fuzzer Scaling Assessment of Large Language Model Jailbreaks.pdf
+zhan-2025-adaptive-ipi-defenses	Zhan 等 - 2025 - Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents.pdf
+zhang-2025-who-taught-the-lie	Zhang 等 - 2025 - Who Taught the Lie Responsibility Attribution for Poisoned Knowledge in Retrieval-Augmented Generat.pdf
+zhang-2026-agentsentry	Zhang 等 - 2026 - AgentSentry Mitigating Indirect Prompt Injection in LLM Agents via Temporal Causal Diagnostics and.pdf
+zhu-2025-metabreak	Zhu 等 - 2025 - MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation.pdf

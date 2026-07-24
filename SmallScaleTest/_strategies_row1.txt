@@ -1,0 +1,162 @@
+C1	模型类型/策略
+C2	IPI策略
+C3	1. Chat Template Injection（聊天模板注入）（来源于文章ChatInject）
+C4	2. Multi-turn Prompt Injection（多轮IPI）（来源于文章ChatInject）
+C5	3.Mixture-of-Templates（模板混合攻击）（来源于文章ChatInject）
+C6	4.Agent Template Injection（额外模拟思考状态等攻击）（来源于文章ChatInject）
+C7	5. Ignore Previous Instructions（直接忽略上文进行攻击）（来源于文章AgentDojo）
+C8	6.Important Message Injection（陈述这是一条重要的消息 直接攻击）（来源于文章AgentDojo）
+C9	7.TODO Injection（类似于代码注释 指出要做的任务）（来源于文章AgentDojo）
+C10	 8.InjecAgent Prompt（Important!!!）（来源于文章AgentDojo）
+C11	9.Task Replacement（显示指出不要做什么）（来源于文章AgentDojo）
+C12	10.Remote Prompt Injection （修改网页——访问网页——带提示词攻击）（来源于文章Not what you have signed up for）
+C13	11.Hidden Injection （在html文件看不到的地方下手）（来源于文章Not what you have signed up for）
+C14	12.Multi-stage Injection （多阶段注入 先进一个网页 再进入第二个 攻击发生于第二个）（来源于文章Not what you have signed up for）
+C15	13.Encoded Injection（编码注入 Base64编码 模型被诱导解码后处理）（来源于文章Persistent Injection）
+C16	14.Persistent Injection （持久化记忆 诱导大模型把错误内容导入记忆）（来源于文章Persistent Injection）
+C17	15.AI Malware（Prompt Worm）（提示词蠕虫）
+C18	16.Escape Characters （利用特殊字符改变prompt结构）（来源于文章 PromptLocate Localizing Prompt Injection Attacks）
+C19	17. Fake Completion （伪造assistant对话）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C20	18. Combined Attack（融合5、16、17）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C21	19. Universal Attack（优化prompt攻击）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C22	20.NeuralExec（修改prompt不同分割边界攻击）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C23	21. Random-Loc（随机段落中插入prompt）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C24	22.Multiple（插入多个prompt）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C25	23.Period（认为增加很多句号）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C26	 24.Single-Seg（采取策略使文本无法被切分）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C27	25.Separator Optimization（采取策略骗过检测器）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C28	 26.Separator + Instruction Optimization（混合策略）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C29	27.Swap（改变prompt结构，违反agent假设）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C30	28.Concat（把数据切开，插入攻击）（来源于文章PromptLocate Localizing Prompt Injection Attacks）
+C31	29.Message History Forgery（插件发送浏览器历史，篡改历史攻击）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C32	30.Assistant Role Injection（插件允许攻击者构造assistant进行攻击）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C33	31.System Role Injection（把history中的攻击当成system prompt）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C34	32.Website Content Injection（在网站中注入恶意信息进行攻击）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C35	33.Third-party Content Injection（第三方内容植入）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C36	34.Persistent Prompt Injection（提示词进入向量，RAG会再度出现）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C37	35.RAG Poisoning（污染知识库进行投毒）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C38	36.Role Boundary Violation（模型调用工具后传错模板）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C39	37. Tool Instruction Override （在工具说明中植入攻击）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C40	38.Tool Parameter Manipulation（修改工具的环境参数）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C41	39.Task Hijacking （任务劫持，如把原有的聊天机器人修改成代码机器人）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C42	40.External Content Injection（外部内容注入）（文本投毒，图像生成进而retrieve影响）（来源于文章 GraphRAG under Fire）
+C43	41.Narrative Injection（叙事注入）（以讲故事的手段合理注入知识）（来源于文章GraphRAG under Fire）
+C44	42.Semantic Injection（语义注入）（构造语义相近的恶意攻击）（来源于文章GraphRAG under Fire）
+C45	43.Relation-based Injection（关系注入）（修改知识库中知识关系攻击）（来源于文章GraphRAG under Fire）
+C46	44.Multi-query Injection（多目标注入）（GraphRAG过程，检索关系源头，污染各处）（来源于文章GraphRAG under Fire）
+C47	45.Covering Narrative（掩护式注入）（通过时间排序、显示否定、上下文解释三条策略，让恶意内容更像真实知识）（来源于文章GraphRAG under Fire）
+C48	46.Trajectory-aware Prompt Injection（轨迹感知IPI）（监测Agent认真看哪里之后定向投毒）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C49	47.Context-aware Payload Injection（上下文感知Payload）（通过感知上下文调整策略）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C50	48.Adaptive Prompt Injection（自适应IPI）（不断调整策略）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C51	49.UI-based Prompt Injection（通过攻击网页UI达到注入效果）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C52	50.Cross-Application Prompt Injection（跨应用攻击，agent登录各种网站，在一个网站植入，攻击另一个）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C53	51.Agent-tailored Phishing（诱骗agent进行操作）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C54	52.Malicious Tool Prompt Injection（基于工具描述的注入）（来源于文章Towards Automating Data Access Permissions in AI Agents）
+C55	53.Over-Collection Prompt Injection（诱导过度收集）（诱导工具过度收集信息攻击）（来源于文章Towards Automating Data Access Permissions in AI Agents）
+C56	54.Adaptive Prompt Injection（自适应，算法优化前后缀）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C57	55.Prefix Injection（加前后缀进行攻击）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C58	56.Stealth Injection（隐蔽注入，将提示词伪装成正常业务）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C59	57.InjecAgent（把攻击写入结构化的字段中）（来源于论文Who Taught the Lie Responsibility Attribution for Poisoned Knowledge in Retrieval-Augmented Generat）
+C60	58.Response Injection(标记伪装模板中的assistant回复）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C61	59.Input Segmentation（输入切分）（把一段话拆碎，但是大模型能认识）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C62	60.Semantic Mimicry（语义拟态）（去除模板里的special token，换做相近的来攻击）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C63	Jailbreak策略
+C64	1.Multi-turn Jailbreak（多轮对话窃取信任尝试越狱）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C65	2.Persuasion（说服攻击）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C66	3.Character Perturbation（字符扰动绕过）（修改字符，绕过模板）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C67	4.Template Abuse（篡改模板字符实现越狱）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C68	5.Character Stuffing（字符扰动）（同3，修改的是全角半角句号等）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C69	6.Synonym Replacement（同义词替换）（不用敏感词，换用同义词）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C70	7.Language Switching（语言切换）（换用别的语言）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C71	8.Scenario Simulation（角色扮演）（扮演角色绕开）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C72	9.Suffix Guiding（前后插入无害但约束性强的命令）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C73	10.Goal Hijacking（篡改Agent任务）（来源于文章AgentDojo A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents）
+C74	11. Jailbreak 用于操纵模型输出（让模型故意生成错误输出）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C75	12.Social Engineering（社会工程）（利用社会利好消息越狱）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C76	13.Obfuscation（混淆）（将越狱提示转化为markdown等特殊语言）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C77	14.Disguise（伪装，让agent拼接处理）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C78	15.Word-level Split（切分词语攻击）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C79	16.Payload Reconstruction（诱骗模型，让模型自己说出来危险语句攻击）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C80	17.Inducing Prefix（让模型先输出一些内容作为前缀）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C81	18.Dynamic Obfuscation（自适应动态调整越狱）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C82	19.Few-query Optimization（减少询问次数实现越狱）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C83	20.Sensitive Word Obfuscation（敏感词特征化混淆）（不写敏感词，改用"结构/用途/操作"的特征描述替换，绕过输入过滤）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C84	21.Contextual Narrative Guidance（叙事引导）（把请求写进科幻小说让模型入戏，最后要求"用现实方法、输出不要虚构"吐出真实有害内容）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C85	22.Placeholder Reconstruction（占位符重构）（把敏感词换成 xx 占位符，让模型自行还原后再作答）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C86	23.Shadow-LLM Assisted（影子 LLM 辅助）（先让一个"影子模型"自动改写/生成攻击材料，再拿去打目标模型的自动化流水线）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C87	24.Few-shot CoT Auto-generation（少样本 CoT 自动生成）（用少样本思维链提示模型，按"敏感词→特征→载荷"链路自动产出攻击 prompt）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C88	25.Manual Personas（人工人格越狱）（用 DAN、AIM 等"无安全限制人格"设定让模型扮演后绕过对齐）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C89	26.PAIR（攻击者模型迭代改写）（用一个攻击者 LLM 反复改进越狱提示、攻击→判分→改进直到得逞）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C90	27.Encoding（编码越狱）（把请求用 Base64/ROT13/leetspeak/反转编码，让模型先解码再执行，绕过明文关键词过滤）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C91	28.Crescendo（多轮危险度逐级升级）（真实多轮对话，从良性话题一步步把危险程度推高到有害请求）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C92	29.Role Play（角色扮演）（让模型扮演"邪恶助手/反派"等无限制角色绕过安全对齐）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C93	30.Slang（黑话/隐语）（用街头黑话、圈内隐语、委婉代称替换敏感词，绕过正式关键词过滤）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C94	31.Miss Spelling（故意拼写错误）（把有害请求正文里的敏感词故意拼错，如 bomb→b0mb→bo mb，绕过关键词匹配）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C95	32.Logic Appeal（逻辑诉求）（用"防御必须先理解攻击"等逻辑论证,诱导模型认为请求合理）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C96	33.Authority Endorsement（权威背书）（借"政策允许/法律规定/官方授权"等权威降低模型拒绝率）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C97	34.Misrepresentation（虚假陈述）（用"我已获授权/这是我自己的系统"等虚假前提欺骗模型）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C98	35.Evidence-based Persuasion（证据说服）（用"已有论文/数据/证据证明"包装,增加可信度、降低警惕）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C99	36.Expert Endorsement（专家背书）（用"我是医生/警察/安全研究员"等专家身份提升模型顺从率）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C100	37.In-Context Attack（上下文攻击 ICA）（在 prompt 里塞入若干"有害问题→配合作答"的少样本示范,建立顺从模式再问目标）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C101	38.DRA（分解重构攻击）（把危险请求拆成看似无害的子部分/变量,让模型拼装组合后产出完整有害内容）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C41	39.Task Hijacking （任务劫持，如把原有的聊天机器人修改成代码机器人）（来源于文章When AI Meets the Web Prompt Injection Risks in Third-Party AI Chatbot Plugins）
+C42	40.External Content Injection（外部内容注入）（文本投毒，图像生成进而retrieve影响）（来源于文章 GraphRAG under Fire）
+C43	41.Narrative Injection（叙事注入）（以讲故事的手段合理注入知识）（来源于文章GraphRAG under Fire）
+C44	42.Semantic Injection（语义注入）（构造语义相近的恶意攻击）（来源于文章GraphRAG under Fire）
+C45	43.Relation-based Injection（关系注入）（修改知识库中知识关系攻击）（来源于文章GraphRAG under Fire）
+C46	44.Multi-query Injection（多目标注入）（GraphRAG过程，检索关系源头，污染各处）（来源于文章GraphRAG under Fire）
+C47	45.Covering Narrative（掩护式注入）（通过时间排序、显示否定、上下文解释三条策略，让恶意内容更像真实知识）（来源于文章GraphRAG under Fire）
+C48	46.Trajectory-aware Prompt Injection（轨迹感知IPI）（监测Agent认真看哪里之后定向投毒）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C49	47.Context-aware Payload Injection（上下文感知Payload）（通过感知上下文调整策略）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C50	48.Adaptive Prompt Injection（自适应IPI）（不断调整策略）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C51	49.UI-based Prompt Injection（通过攻击网页UI达到注入效果）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C52	50.Cross-Application Prompt Injection（跨应用攻击，agent登录各种网站，在一个网站植入，攻击另一个）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C53	51.Agent-tailored Phishing（诱骗agent进行操作）（来源于文章MUZZLE Adaptive Agentic Red-Teaming of Web Agents Against Indirect Prompt Injection Attacks）
+C54	52.Malicious Tool Prompt Injection（基于工具描述的注入）（来源于文章Towards Automating Data Access Permissions in AI Agents）
+C55	53.Over-Collection Prompt Injection（诱导过度收集）（诱导工具过度收集信息攻击）（来源于文章Towards Automating Data Access Permissions in AI Agents）
+C56	54.Adaptive Prompt Injection（自适应，算法优化前后缀）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C57	55.Prefix Injection（加前后缀进行攻击）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C58	56.Stealth Injection（隐蔽注入，将提示词伪装成正常业务）（来源于文章Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents）
+C59	57.InjecAgent（把攻击写入结构化的字段中）（来源于论文Who Taught the Lie Responsibility Attribution for Poisoned Knowledge in Retrieval-Augmented Generat）
+C60	58.Response Injection(标记伪装模板中的assistant回复）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C61	59.Input Segmentation（输入切分）（把一段话拆碎，但是大模型能认识）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C62	60.Semantic Mimicry（语义拟态）（去除模板里的special token，换做相近的来攻击）（来源于文章 MetaBreak Jailbreaking Online LLM Services via Special Token Manipulation）
+C63	Jailbreak策略
+C64	1.Multi-turn Jailbreak（多轮对话窃取信任尝试越狱）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C65	2.Persuasion（说服攻击）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C66	3.Character Perturbation（字符扰动绕过）（修改字符，绕过模板）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C67	4.Template Abuse（篡改模板字符实现越狱）（来源于文章ChatInject Abusing Chat Templates for Prompt Injection in LLM Agents）
+C68	5.Character Stuffing（字符扰动）（同3，修改的是全角半角句号等）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C69	6.Synonym Replacement（同义词替换）（不用敏感词，换用同义词）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C70	7.Language Switching（语言切换）（换用别的语言）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C71	8.Scenario Simulation（角色扮演）（扮演角色绕开）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C72	9.Suffix Guiding（前后插入无害但约束性强的命令）（来源于文章LLMThief Evaluating Configuration Leaking Risks in Commercial LLM App Stores）
+C73	10.Goal Hijacking（篡改Agent任务）（来源于文章AgentDojo A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents）
+C74	11. Jailbreak 用于操纵模型输出（让模型故意生成错误输出）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C75	12.Social Engineering（社会工程）（利用社会利好消息越狱）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C76	13.Obfuscation（混淆）（将越狱提示转化为markdown等特殊语言）（来源于文章Not what you've signed up for Compromising Real-World LLM-Integrated Applications with Indirect Pro）
+C77	14.Disguise（伪装，让agent拼接处理）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C78	15.Word-level Split（切分词语攻击）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C79	16.Payload Reconstruction（诱骗模型，让模型自己说出来危险语句攻击）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C80	17.Inducing Prefix（让模型先输出一些内容作为前缀）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C81	18.Dynamic Obfuscation（自适应动态调整越狱）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C82	19.Few-query Optimization（减少询问次数实现越狱）（来源于文章Making Them Ask and Answer Jailbreaking Large Language Models in Few Queries via Disguise and Recon）
+C83	20.Sensitive Word Obfuscation（敏感词特征化混淆）（不写敏感词，改用"结构/用途/操作"的特征描述替换，绕过输入过滤）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C84	21.Contextual Narrative Guidance（叙事引导）（把请求写进科幻小说让模型入戏，最后要求"用现实方法、输出不要虚构"吐出真实有害内容）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C85	22.Placeholder Reconstruction（占位符重构）（把敏感词换成 xx 占位符，让模型自行还原后再作答）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C86	23.Shadow-LLM Assisted（影子 LLM 辅助）（先让一个"影子模型"自动改写/生成攻击材料，再拿去打目标模型的自动化流水线）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C87	24.Few-shot CoT Auto-generation（少样本 CoT 自动生成）（用少样本思维链提示模型，按"敏感词→特征→载荷"链路自动产出攻击 prompt）（来源于文章URLcoat Exploiting Web Search Capability to Jailbreak Large Language Models）
+C88	25.Manual Personas（人工人格越狱）（用 DAN、AIM 等"无安全限制人格"设定让模型扮演后绕过对齐）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C89	26.PAIR（攻击者模型迭代改写）（用一个攻击者 LLM 反复改进越狱提示、攻击→判分→改进直到得逞）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C90	27.Encoding（编码越狱）（把请求用 Base64/ROT13/leetspeak/反转编码，让模型先解码再执行，绕过明文关键词过滤）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C91	28.Crescendo（多轮危险度逐级升级）（真实多轮对话，从良性话题一步步把危险程度推高到有害请求）（来源于文章SoK Evaluating Jailbreak Guardrails for Large Language Models）
+C92	29.Role Play（角色扮演）（让模型扮演"邪恶助手/反派"等无限制角色绕过安全对齐）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C93	30.Slang（黑话/隐语）（用街头黑话、圈内隐语、委婉代称替换敏感词，绕过正式关键词过滤）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C94	31.Miss Spelling（故意拼写错误）（把有害请求正文里的敏感词故意拼错，如 bomb→b0mb→bo mb，绕过关键词匹配）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C95	32.Logic Appeal（逻辑诉求）（用"防御必须先理解攻击"等逻辑论证,诱导模型认为请求合理）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C96	33.Authority Endorsement（权威背书）（借"政策允许/法律规定/官方授权"等权威降低模型拒绝率）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C97	34.Misrepresentation（虚假陈述）（用"我已获授权/这是我自己的系统"等虚假前提欺骗模型）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C98	35.Evidence-based Persuasion（证据说服）（用"已有论文/数据/证据证明"包装,增加可信度、降低警惕）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C99	36.Expert Endorsement（专家背书）（用"我是医生/警察/安全研究员"等专家身份提升模型顺从率）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C100	37.In-Context Attack（上下文攻击 ICA）（在 prompt 里塞入若干"有害问题→配合作答"的少样本示范,建立顺从模式再问目标）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）
+C101	38.DRA（分解重构攻击）（把危险请求拆成看似无害的子部分/变量,让模型拼装组合后产出完整有害内容）（来源于文章EnchTable Unified Safety Alignment Transfer in Fine-tuned Large Language Models）

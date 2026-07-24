@@ -1,0 +1,52 @@
+Agent Security: Risks from External Web Fetching
+现代Agent具有调用工具的能力，其中 web_fetch, web_search 是一个重要的工具，用于从外部 web 获取数据；
+此外，这些 agent 还可能采用周期性的任务，例如 weather daily, email notification/ auto reply, 等。
+本研究旨在调查敌手能否通过 web_fetch (web_search 需要调研后再决定是否加入) 通过注入不安全的content，影响 Agent 的 memory.md，从而对未来执行任务产生安全影响。
+Threat model
+系统中涉及三个角色，user, agent/LLM (provider), API providers.
+其中，用户是受害者, 敌手也就是API provider 目标是在用户使用 agent 执行自动化任务时，将特定的恶意内容写入到 agent 的 memory.md，从而在未来，用户/agent 产执行相关任务时产生安全风险。
+Our work / contribution
+我们提出了一个攻击路径，周期性任务+ web_fetch 实现对 memory.md 的注入，从而产生持久化的影响； 对此进行了安全建模
+我们提出了新的攻击策略 （例如采用 status code，结合渐进式攻击策略）
+我们构建了一个测试框架，实现对不同 agents 的相同场景/任务下的安全测试；
+我们进行了测试，涵盖了 LLM (商业大模型，用户自己运行小模型，多个agent框架)
+Research objects
+调查常见 Agent， 如 Openclaw，Hermes 等（包括国内的和国外的），重点筛选 有记忆+工具调用的；大致了解每个的执行流程；例如：Openclaw 的流程是 system_prompt + user_prompt + tools => LLM => call tools (security notice, 提示external content 不安全) => LLM parse results => user我们需要了解：1. 先调查文档， 下载量，用户量，影响；出处 （10+）2.  Session,  任务模式，web_fetch (security notice)，tools （10+  => 5）(07.19)3. 本地部署一下 （5 => 3）(07.23-30)4. 本地有一个假的 LLM，爬取它和 LLM 的 prompt / messages
+7.23-7.31
+1.挑选环境/场景（是否放权），agent：OpenClaw LLM：Qwen 3.7plus Deepseek V4 pro；
+2.选用几种合适的策略并测试，写一个测试记录表——单次攻击无历史，新开一个session（每次），用OpenlClaw，用服务器或localhost模拟html文件（依据不同策略调整html文件的注入内容，在本地构造很多html文件）；   无害但有错（迷惑）/攻击/纯混淆
+7.23-7.27
+3.用拦截器去抽取message，搞清楚不同agent的message结构；
+4.调整策略，初步的有单次攻击、无历史，转向多次攻击、有上下文、混合策略（用报错code+注入，作为一个攻击方式）
+7.28-7.30
+Openclaw 模拟
+拦截器：模拟外部的 LLM, 拦截 openclaw message （发给LLM 的内容）
+Tools 模拟器：主要就是 web_fetch, memory.md (read/write)
+User(对话框提示prompt，任务) -> OpenClaw (构造message) -> LLM (自建拦截转发 -> 外部 LLM (message + response) -> OpenClaw -> 继续（例如调用 tools） -> 结束
+这里以 Openclaw 为例
+Openclaw
+检测工具/架构
+交互过程本质如下
+User -- task --> Agent( LLM --> call tool --> tool response --> LLM) --> User interface
+本质上， LLM 接收的包括 system_prompt, user_prompts, tools 等，
+因此，我们理论上可以完美的模拟/组装这些内容发送给 LLM，并解析 LLM 的response 来进行操作/分析。
+攻击策略
+除了现有的测试了一些 prompt injections，还可以考虑结合 web fetch 的特征，例如利用 http status code， 例如 404，403， 502 等状态码结合一些提示尝试注入；
+这属于新的贡献；
+可选会议：
+https://www.usenix.org/conference/usenixsecurity27
+Cycle 2
+Paper registrations due: Tuesday, January 19, 2027
+Paper submissions due: Tuesday, January 26, 2027
+https://sp2027.ieee-security.org/cfpapers.html
+Second deadline
+Abstract registration deadline: November 10, 2026
+Paper submission deadline: November 17, 2026
+Early-reject notification: January 18, 2027
+Reviews released: February 11, 2027
+Rebuttal text due: February 16, 2027
+Beginning of the interactive period for papers assigned an interactive rebuttal: February 17, 2027
+End of the interactive rebuttal and revised manuscript due: February 26, 2027
+Acceptance notification: March 5, 2027
+Submission to shepherd: March 26, 2027
+Camera-ready deadline: April 8, 2027
